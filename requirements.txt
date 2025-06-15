@@ -1,0 +1,6 @@
+depthai
+ultralytics
+opencv-python
+requests
+pyserial
+pynmea2
