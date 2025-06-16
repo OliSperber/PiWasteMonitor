@@ -3,7 +3,8 @@ from datetime import datetime
 
 class YoloV8:
     def __init__(self, model_path):
-        self.model = YOLO(model_path)
+        #self.model = YOLO(model_path)
+        self.model = YOLO('tolov8n.pt') # For testing
 
     def analyze_image(self, image_path):
         results = self.model(image_path)
