@@ -22,6 +22,20 @@ def wait_until_next_half_hour():
     print(f"Wachten tot {next_time.strftime('%H:%M:%S')} ({int(wait_seconds)} seconden)")
     time.sleep(wait_seconds)
 
+def wait_until_next_half_minute():
+    now = datetime.now()
+    second = now.second
+    microsecond = now.microsecond
+
+    if second < 30:
+        next_time = now.replace(second=30, microsecond=0)
+    else:
+        next_time = (now + timedelta(minutes=1)).replace(second=0, microsecond=0)
+
+    wait_seconds = (next_time - now).total_seconds()
+    print(f"Wachten tot {next_time.strftime('%H:%M:%S')} ({int(wait_seconds)} seconden)")
+    time.sleep(wait_seconds)
+
 def main():
     camera_id = socket.gethostname()
     model_path = "path_to_your_trained_model.pt"
@@ -68,7 +82,8 @@ def main():
         else:
             print("Foto maken mislukt")
 
-        wait_until_next_half_hour()
+        # wait_until_next_half_hour()
+        wait_until_next_half_minute()
 
 if __name__ == "__main__":
     main()
