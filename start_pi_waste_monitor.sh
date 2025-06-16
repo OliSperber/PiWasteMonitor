@@ -1,11 +1,12 @@
 #!/bin/bash
 
+source /home/pi/.bashrc
+
 echo "Waiting for 3 seconds to allow wifi connection..."
 sleep 3
 
 cd /home/pi/PiWasteMonitor
-source /home/pi/.bashrc
-source pytorch_env/bin/activate
+#source pytorch_env/bin/activate
 
 ping -c 1 google.com > /dev/null
 if [ $? -eq 0 ]; then
