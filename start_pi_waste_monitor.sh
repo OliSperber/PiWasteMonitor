@@ -6,7 +6,7 @@ echo "Waiting for 3 seconds to allow wifi connection..."
 sleep 3
 
 cd /home/pi/PiWasteMonitor
-#source pytorch_env/bin/activate
+source pytorch_env/bin/activate
 
 ping -c 1 google.com > /dev/null
 if [ $? -eq 0 ]; then
