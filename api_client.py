@@ -8,7 +8,7 @@ class APIClient:
         self.api_password = os.environ.get("API_PASSWORD")
 
     def send_results(self, objects_bulk):
-        url = f"{self.base_url}/api/wastedetection/bulk"
+        url = f"{self.base_url}/api/wastedetection"
         headers = {"Api-Password": self.api_password} if self.api_password else {}
         try:
             response = requests.post(url, json=objects_bulk, headers=headers, timeout=10)
