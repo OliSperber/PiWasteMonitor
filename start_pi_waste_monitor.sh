@@ -3,8 +3,7 @@
 echo "Waiting for 3 seconds to allow wifi connection..."
 sleep 3
 
-echo "Activating Virtual Environment"
-source venv/bin/activate
+cd /home/pi/PiWasteMonitor
 
 ping -c 1 google.com > /dev/null
 if [ $? -eq 0 ]; then
