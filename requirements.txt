@@ -5,3 +5,4 @@ requests
 pyserial
 pynmea2
 numpy==1.24.2
+geocoder
