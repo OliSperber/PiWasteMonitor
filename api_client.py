@@ -17,11 +17,13 @@ class APIClient:
                 print("Response body:", json.dumps(response.json(), indent=2))
             except Exception:
                 print("Response body:", response.text)
+            if response.status_code == 201:
+                print("Data succesvol aangemaakt (201)")
+                return 201
             if response.status_code == 401:
                 print("401 Unauthorized - verwijder detectie lokaal")
                 return 401
-            response.raise_for_status()
-            print("Data succesvol verzonden")
+            # Andere statuscodes worden als niet succesvol beschouwd
             return response.status_code
         except requests.RequestException as e:
             print(f"Fout bij verzenden: {e}")
