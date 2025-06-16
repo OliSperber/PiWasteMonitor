@@ -1,9 +1,6 @@
-from geopy.geocoders import Nominatim
+import geocoder
 
 class GeoCoder:
-    def __init__(self, user_agent="piwastemonitor"):
-        self.geolocator = Nominatim(user_agent=user_agent)
-
     def get_coords():
         g = geocoder.ip('me')
         if g.ok and g.latlng:
