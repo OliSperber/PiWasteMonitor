@@ -25,7 +25,7 @@ def wait_until_next_half_hour():
 def main():
     camera_id = socket.gethostname()
     model_path = "path_to_your_trained_model.pt"
-    api_url = "https://jouw-api-url"
+    api_url = "https://sensoring-api.happycliff-476a231a.westeurope.azurecontainerapps.io"
 
     camera = CameraOakD()
     detector = YoloV8(model_path)
