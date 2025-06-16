@@ -58,12 +58,10 @@ def main():
             print(f"Verstuur {len(pending)} oude detecties")
             for detection in pending:
                 status = api.send_results(detection)
-                if status == 401:
+                if status == 201:
                     store.remove_detection(detection)
-                elif status is None:
-                    print("Kan detectie nog niet versturen, probeer later")
                 else:
-                    store.remove_detection(detection)
+                    print("Kan detectie nog niet versturen, probeer later")
 
         # Nieuwe detectie
         image_path = camera.capture_image()
