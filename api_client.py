@@ -9,10 +9,8 @@ class APIClient:
         url = f"{self.base_url}/api/wastedetection/bulk"
         try:
             response = requests.post(url, json=objects_bulk, timeout=10)
-            try:
-                print("Response:", json.dumps(response.json(), indent=2))
-            except Exception:
-                print("Response (geen JSON):", response.text)
+            print(f"Status code: {response.status_code}")
+            print("Response body:", response.text)
             if response.status_code == 401:
                 print("401 Unauthorized - verwijder detectie lokaal")
                 return 401
@@ -21,26 +19,33 @@ class APIClient:
             return response.status_code
         except requests.RequestException as e:
             print(f"Fout bij verzenden: {e}")
+            if hasattr(e, 'response') and e.response is not None:
+                print(f"Status code: {e.response.status_code}")
+                print("Response body:", e.response.text)
             return None
 
     def is_online(self):
         url = f"{self.base_url}/api"
         try:
             response = requests.get(url, timeout=5)
-            try:
-                print("Response:", json.dumps(response.json(), indent=2))
-            except Exception:
-                print("Response (geen JSON):", response.text)
+            print(f"Status code: {response.status_code}")
+            print("Response body:", response.text)
             response.raise_for_status()
             json_data = response.json()
             return json_data.get("status") == "online"
-        except requests.RequestException:
+        except requests.RequestException as e:
+            print(f"Fout bij controleren API: {e}")
+            if hasattr(e, 'response') and e.response is not None:
+                print(f"Status code: {e.response.status_code}")
+                print("Response body:", e.response.text)
             return False
 
     def has_internet_connection(self):
         try:
             response = requests.get("http://google.com", timeout=3)
-            print("Response:", response.text)
+            print(f"Status code: {response.status_code}")
+            print("Response body:", response.text)
             return True
-        except requests.RequestException:
+        except requests.RequestException as e:
+            print(f"Fout bij internet check: {e}")
             return False
