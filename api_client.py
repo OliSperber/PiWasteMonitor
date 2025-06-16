@@ -1,4 +1,5 @@
 import requests
+import json
 
 class APIClient:
     def __init__(self, base_url):
@@ -8,6 +9,10 @@ class APIClient:
         url = f"{self.base_url}/api/wastedetection/bulk"
         try:
             response = requests.post(url, json=objects_bulk, timeout=10)
+            try:
+                print("Response:", json.dumps(response.json(), indent=2))
+            except Exception:
+                print("Response (geen JSON):", response.text)
             if response.status_code == 401:
                 print("401 Unauthorized - verwijder detectie lokaal")
                 return 401
@@ -22,6 +27,10 @@ class APIClient:
         url = f"{self.base_url}/api"
         try:
             response = requests.get(url, timeout=5)
+            try:
+                print("Response:", json.dumps(response.json(), indent=2))
+            except Exception:
+                print("Response (geen JSON):", response.text)
             response.raise_for_status()
             json_data = response.json()
             return json_data.get("status") == "online"
@@ -30,7 +39,8 @@ class APIClient:
 
     def has_internet_connection(self):
         try:
-            requests.get("http://google.com", timeout=3)
+            response = requests.get("http://google.com", timeout=3)
+            print("Response:", response.text)
             return True
         except requests.RequestException:
             return False

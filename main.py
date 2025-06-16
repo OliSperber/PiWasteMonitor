@@ -34,6 +34,8 @@ def main():
     gps = GeoCoder()
 
     print(gps.get_coords())
+    if api.is_online():
+        print("API is online, klaar om te starten")
 
     while True:
         # Oude detecties versturen
