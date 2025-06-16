@@ -5,7 +5,7 @@ from camera_oakd import CameraOakD
 from yolo_v8 import YoloV8
 from api_client import APIClient
 from object_manager import ObjectManager
-from gps_navilock import GPSNaviLock
+from geo_coder import GeoCoder
 
 def wait_until_next_half_hour():
     now = datetime.now()
@@ -31,16 +31,14 @@ def main():
     detector = YoloV8(model_path)
     api = APIClient(api_url)
     store = ObjectManager()
-    gps = GPSNaviLock()
+    gps = GeoCoder()
 
-    if not api.is_online():
-        print("API offline, stop")
-        return
+    print(gps.get_coords())
 
     while True:
         # Oude detecties versturen
         pending = store.load_all()
-        if pending:
+        if pending and api.is_online():
             print(f"Verstuur {len(pending)} oude detecties")
             for detection in pending:
                 status = api.send_results(detection)
