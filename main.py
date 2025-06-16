@@ -54,7 +54,7 @@ def main():
     while True:
         # Oude detecties versturen
         pending = store.load_all()
-        if pending and api.is_online():
+        if pending:
             print(f"Verstuur {len(pending)} oude detecties")
             for detection in pending:
                 status = api.send_results(detection)
