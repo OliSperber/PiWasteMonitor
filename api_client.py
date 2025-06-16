@@ -5,7 +5,7 @@ class APIClient:
         self.base_url = base_url.rstrip('/')
 
     def send_results(self, objects_bulk):
-        url = f"{self.base_url}/your-endpoint"
+        url = f"{self.base_url}/api/wastedetection/bulk"
         try:
             response = requests.post(url, json=objects_bulk, timeout=10)
             if response.status_code == 401:
@@ -19,7 +19,7 @@ class APIClient:
             return None
 
     def is_online(self):
-        url = f"{self.base_url}/empty"
+        url = f"{self.base_url}/api"
         try:
             response = requests.get(url, timeout=5)
             response.raise_for_status()

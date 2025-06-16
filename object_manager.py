@@ -21,6 +21,11 @@ class ObjectManager:
         detections.append(detection)
         self.save_all(detections)
 
+    def add_detections(self, detections_list):
+        detections = self.load_all()
+        detections.extend(detections_list)
+        self.save_all(detections)
+
     def remove_detection(self, detection):
         detections = self.load_all()
         detections = [d for d in detections if d != detection]
