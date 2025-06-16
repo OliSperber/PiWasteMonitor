@@ -1,7 +1,7 @@
 import geocoder
 
 class GeoCoder:
-    def get_coords():
+    def get_coords(self):
         g = geocoder.ip('me')
         if g.ok and g.latlng:
             return g.latlng[0], g.latlng[1]
