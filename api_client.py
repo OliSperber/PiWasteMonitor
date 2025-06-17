@@ -35,28 +35,29 @@ class APIClient:
                     print("Response body:", e.response.text)
             return None
 
-    def is_online(self):
-        url = f"{self.base_url}/api"
-        headers = {"Api-Password": self.api_password} if self.api_password else {}
+def is_online(self):
+    url = f"{self.base_url}/api"
+    headers = {"Api-Password": self.api_password} if self.api_password else {}
+    try:
+        response = requests.get(url, headers=headers, timeout=5)
+        print(f"Status code: {response.status_code}")
         try:
-            response = requests.get(url, headers=headers, timeout=5)
-            print(f"Status code: {response.status_code}")
+            print("Response body:", json.dumps(response.json(), indent=2))
+        except Exception:
+            print("Response body:", response.text)
+        response.raise_for_status()
+        json_data = response.json()
+        # Check if 'online' key exists and is True
+        return json_data.get("online") is True
+    except requests.RequestException as e:
+        print(f"Fout bij controleren API: {e}")
+        if hasattr(e, 'response') and e.response is not None:
+            print(f"Status code: {e.response.status_code}")
             try:
-                print("Response body:", json.dumps(response.json(), indent=2))
+                print("Response body:", json.dumps(e.response.json(), indent=2))
             except Exception:
-                print("Response body:", response.text)
-            response.raise_for_status()
-            json_data = response.json()
-            return json_data.get("status") == "online"
-        except requests.RequestException as e:
-            print(f"Fout bij controleren API: {e}")
-            if hasattr(e, 'response') and e.response is not None:
-                print(f"Status code: {e.response.status_code}")
-                try:
-                    print("Response body:", json.dumps(e.response.json(), indent=2))
-                except Exception:
-                    print("Response body:", e.response.text)
-            return False
+                print("Response body:", e.response.text)
+        return False
 
     def has_internet_connection(self):
         try:
