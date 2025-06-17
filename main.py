@@ -7,6 +7,8 @@ from api_client import APIClient
 from object_manager import ObjectManager
 from geo_coder import GeoCoder
 
+# Small test to look for pull requests
+
 def wait_until_next_half_hour():
     now = datetime.now()
     minute = now.minute
