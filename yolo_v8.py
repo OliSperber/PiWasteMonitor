@@ -24,7 +24,7 @@ class YoloV8:
                     "bbox": bbox
                 })
 
-        yolo.save_annotated_image("input.jpg", detections, "output_annotated.jpg")
+        save_annotated_image("input.jpg", detections, "output_annotated.jpg")
         return detections
 
     def create_detection_object(self, camera_id, detected_objects, latitude, longitude):
