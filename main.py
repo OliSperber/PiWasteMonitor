@@ -40,7 +40,7 @@ def wait_until_next_half_minute():
 
 def main():
     camera_id = socket.gethostname()
-    model_path = "path_to_your_trained_model.pt"
+    model_path = "best.pt"
     api_url = "https://sensoring-api.happycliff-476a231a.westeurope.azurecontainerapps.io"
 
     camera = CameraOakD()
