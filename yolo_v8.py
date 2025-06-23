@@ -5,13 +5,14 @@ class YoloV8:
     def __init__(self, model_path):
         self.model = YOLO('best.pt') 
 
-    def analyze_image(self, image_path):
+    def analyze_image(self, image_path, min_confidence=0.4):
         results = self.model(image_path)
         detections = []
         for result in results:
             for det in result.boxes.data.cpu().numpy():
-                # [x1, y1, x2, y2, confidence, class]
                 confidence = float(det[4])
+                if confidence < min_confidence:
+                    continue
                 class_id = int(det[5])
                 class_name = self.model.names[class_id]
                 detections.append({"class": class_name, "confidence": confidence})
