@@ -4,7 +4,7 @@ from datetime import datetime
 
 class YoloV8:
     def __init__(self, model_path):
-        self.model = YOLO(model_path)  # model_path gebruiken i.p.v. hardcoded 'best.pt'
+        self.model = YOLO(model_path) 
 
     def analyze_image(self, image_path, min_confidence=0.4):
         results = self.model(image_path)
