@@ -82,8 +82,8 @@ def main():
         else:
             print("Foto maken mislukt")
 
-        # wait_until_next_half_hour()
-        wait_until_next_half_minute()
+        wait_until_next_half_hour()
+        # wait_until_next_half_minute()
 
 if __name__ == "__main__":
     main()
